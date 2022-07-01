@@ -11,9 +11,11 @@ public class HealthHandler : MonoBehaviour
     public float health;
     public float jabDamage;
     public float crossDamage;
+    
    
     public EnemyFightingAi forEnemy;// for guard detection.
     public Text healthText;
+    public Text theLevelText;
 
     public AudioSource punchSound;
    
@@ -95,6 +97,7 @@ public class HealthHandler : MonoBehaviour
     public void DamageHandler()
     {
         healthText.text = "Enemy Health: " + health.ToString("00");
+        theLevelText.text = "Level is " + PlayerPrefs.GetInt("levelNumber");
         if (forEnemy.guard) // if enemy guards damages reduces.
         {
             jabDamage = 0.5f;

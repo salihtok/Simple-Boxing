@@ -11,6 +11,7 @@ public class PlayerControllerV2 : MonoBehaviour
     public float movementSpeed;
     public float rotationSpeed;
     public float horizontalMouseAxis;
+    public GameObject gameMenu;
     void Start()
     {
         StartPackage();
@@ -51,6 +52,12 @@ public class PlayerControllerV2 : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             playerRigidBody.MovePosition(playerRigidBody.position + lateralMovement);
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            gameMenu.SetActive(true);
+            Time.timeScale = 0;
         }
         
     }

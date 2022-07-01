@@ -14,7 +14,7 @@ public class EnemyAiV2 : MonoBehaviour
     public float rotateSpeed;// rotation speed.
     public float distance;// distance between fighters.
     public float determinedDistance;// distance that we can arrange.
-    public float newSpeedReg;
+    public float newSpeedReg;//regulates to move speed. this one is valid.
     
    
     [Header("Game Objects")] 

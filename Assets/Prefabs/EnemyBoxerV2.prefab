@@ -80,6 +80,7 @@ MonoBehaviour:
   crossDamage: 0
   forEnemy: {fileID: 7629541017951452610}
   healthText: {fileID: 0}
+  punchSound: {fileID: 0}
 --- !u!1 &2442956013329169205
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +536,8 @@ GameObject:
   - component: {fileID: 5412607099538366293}
   - component: {fileID: 6581550875018404926}
   - component: {fileID: 6581550875018404927}
+  - component: {fileID: 7315868778252605363}
+  - component: {fileID: 932057102286526986}
   - component: {fileID: 7629541017951452623}
   - component: {fileID: 7629541017951452610}
   - component: {fileID: 2578211231009284118}
@@ -650,6 +653,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.51684976, y: 1.3314713, z: 0.32285026}
   m_Center: {x: 0, y: -0.46037084, z: 0.067985475}
+--- !u!114 &7315868778252605363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772925375240896128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4d1a9378ebeac459f378e1af4d6d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+--- !u!114 &932057102286526986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772925375240896128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c47f91efc278f44b97d14178591c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScript: {fileID: 0}
+  elapsedTime: 0
+  playerPunches: 0
+  playerGuardTime: 0
+  aggressionRate: 0
+  defensiveRate: 0
+  playerPunching: 0
+  guarding: 0
+  playerGuarding: 0
 --- !u!114 &7629541017951452623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +704,7 @@ MonoBehaviour:
   rotateSpeed: 1
   distance: 0
   determinedDistance: 0.75
+  newSpeedReg: 0
   playerBoxer: {fileID: 0}
   playerPunchScript: {fileID: 0}
   enemyRigidbody: {fileID: 6581550875018404926}
@@ -707,7 +745,10 @@ MonoBehaviour:
   guardLerpAdj: 0
   standHandler: 0
   standLerpAdj: 0
+  aggressionRate: 0
+  defensiveRate: 0
   playerPunchingScript: {fileID: 0}
+  playerFightRates: {fileID: 0}
   enemyAiScript: {fileID: 7629541017951452623}
   playerPunching: 0
   playerGuarding: 0

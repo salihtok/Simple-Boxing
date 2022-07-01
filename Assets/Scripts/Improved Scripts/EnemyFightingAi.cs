@@ -20,6 +20,8 @@ public class EnemyFightingAi : MonoBehaviour
 
     public int crossProbability;
     public int guardProbability;
+    public int realCrossProbability;
+    public int realGuardProbability;
     public float timePassed;// a counter that starts when punch activated.
     public float punchDuration; // how long it take throw a punch.
     public float pingPongTime;// a value for pingpong function;
@@ -29,9 +31,14 @@ public class EnemyFightingAi : MonoBehaviour
     public float guardLerpAdj;
     public float standHandler;
     public float standLerpAdj;
+    [Header(("Fight Parameters"))]
+    public float aggressionRate;
+    public float defensiveRate;
+    public int theLevel; // enemy boxer level.
     [Header("Other Scripts")] 
     public ProperPunch playerPunchingScript;
 
+    public FightRates playerFightRates;// the script that determines how player aggressive or defensive.
     public EnemyAiV2 enemyAiScript;
 
     [Header("Booleans")] public bool playerPunching;
@@ -44,7 +51,8 @@ public class EnemyFightingAi : MonoBehaviour
     
     void Start()
     {
-        
+        aggressionRate = 0;
+        defensiveRate = 0;
     }
 
     void StartStuff()
@@ -60,6 +68,16 @@ public class EnemyFightingAi : MonoBehaviour
         PunchTimeHandler();
         DistanceHandler();
         Punches();
+        PlayerFightRateHandler();
+        Level();
+        LevelAndBehaviorHandler();
+        EnemyAggressionAndDefensive();
+    }
+
+    void PlayerFightRateHandler()// determines fight rates for player.
+    {
+        aggressionRate = playerFightRates.aggressionRate;
+        defensiveRate = playerFightRates.defensiveRate;
     }
 
     void DistanceHandler() // checks whether player in striking zone or not.
@@ -108,6 +126,11 @@ public class EnemyFightingAi : MonoBehaviour
        
     }
 
+    void Level()
+    {
+        theLevel = PlayerPrefs.GetInt("levelNumber");
+    }
+
     void ScriptCommunication() // checks what player is doing.
     {
         playerPunching = playerPunchingScript.canPunch;
@@ -152,7 +175,7 @@ public class EnemyFightingAi : MonoBehaviour
                 Vector3.Lerp(punchR.transform.position, stanceR.transform.position, standHandler);
             punchL.transform.position =
                 Vector3.Lerp(punchL.transform.position, stanceL.transform.position, standHandler);
-            //isStancing = true;
+            
             pingPAdjuster = 0;
         }
     }
@@ -186,4 +209,74 @@ public class EnemyFightingAi : MonoBehaviour
         }
     }
 
+    void LevelAndBehaviorHandler()
+    {
+        switch (theLevel)
+        {
+            case 1:
+                punchDuration = .39f;
+                pPSpeed = 5;
+                crossProbability = 1;
+                guardProbability = 2;
+                break;
+            case 2:
+                punchDuration = .27f;
+                pPSpeed = 7;
+                crossProbability = realCrossProbability;
+                guardProbability = realGuardProbability;
+                break;
+            case 3:
+                punchDuration = .19f;
+                pPSpeed = 10;
+                crossProbability = realCrossProbability;
+                guardProbability = realGuardProbability;
+                break;
+        }
+    }
+
+    void EnemyAggressionAndDefensive()
+    {
+        if (theLevel == 2)
+        {
+            if (aggressionRate <= 1)
+            {
+                realGuardProbability = 2;
+            }
+            else if (aggressionRate >= 1.1f )
+            {
+                realGuardProbability = 6;
+            }
+
+            if (defensiveRate < .25f)
+            {
+                realCrossProbability = 3;
+            }
+            else if (defensiveRate >= .25f)
+            {
+                realCrossProbability = 5;
+            }
+            
+        }
+
+        if (theLevel == 3)
+        {
+            if (aggressionRate <= 1)
+            {
+                realGuardProbability = 5;
+            }
+            else if (aggressionRate >= 1.1f )
+            {
+                realGuardProbability = 9;
+            }
+
+            if (defensiveRate < .25f)
+            {
+                realCrossProbability = 4;
+            }
+            else if (defensiveRate >= .25f)
+            {
+                realCrossProbability = 6;
+            }
+        }
+    }
 }

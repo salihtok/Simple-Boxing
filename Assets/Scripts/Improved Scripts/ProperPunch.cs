@@ -62,7 +62,7 @@ public class ProperPunch : MonoBehaviour
 
     
    
-    void FixedUpdate()
+    void Update()
     {
        PunchHandler();
        PunchTimeHandler();
